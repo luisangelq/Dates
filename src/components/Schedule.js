@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 const Schedule = ({schedule, deleteSchedule}) => {
 
@@ -17,6 +18,11 @@ const Schedule = ({schedule, deleteSchedule}) => {
             >Delete &times;</button>
         </div>
     )
+}
+
+Schedule.propTypes = {
+    schedule: PropTypes.object.isRequired,
+    deleteSchedule: PropTypes.func.isRequired
 }
 
 export default Schedule;
