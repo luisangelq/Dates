@@ -1,25 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useState } from 'react';
+import Form from './components/Form';
+import Schedule from './components/Schedule';
+
 
 function App() {
+
+  //dates array
+  const [schedules, getSchedules] = useState([])
+
+  //function for add new chedules 
+  const createSchedule = schedule => {
+    getSchedules([
+      ...schedules,
+      schedule
+    ]);
+  }
+
+  //Delete funtion
+  const deleteSchedule = id => {
+    const newSchedules = schedules.filter(schedule => schedule.id !== id );
+    getSchedules(newSchedules)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <h1>Patient administrator</h1>
+      <div className="container">
+        <div className="row">
+          <div className="one-half column">
+            <Form
+            createSchedule={createSchedule}
+            />
+          </div>
+          <div className="one-half column">
+            <h2>Manage your appointments</h2>
+            {schedules.map(schedule => (
+              <Schedule 
+              key={schedule.id}
+              schedule={schedule}
+              deleteSchedule={deleteSchedule}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </Fragment>
+    
   );
 }
 
